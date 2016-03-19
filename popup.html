@@ -37,35 +37,37 @@
   </head>
 
   <body>
-      <form>
-        <p>
-        Remind every (min):<br>
-        <label class='radio-inline'>
-          <input type='radio' name='radioTimeOption' id='radioTimeOption1' value='option1'> 1&nbsp
-        </label>
-        <label class='radio-inline'>
-          <input type='radio' name='radioTimeOption' id='radioTimeOption2' value='option2'> 3&nbsp
-        </label>
-        <label class='radio-inline'>
-          <input type='radio' name='radioTimeOption' id='radioTimeOption3' value='option3'> 5&nbsp
-        </label>
-        <label class='radio-inline'>
-          <input type='radio' name='radioTimeOption' id='radioTimeOption4' value='option4'> 10&nbsp
-        </label>
-        <label class='radio-inline'>
-          <input type='radio' name='radioTimeOption' id='radioTimeOption5' value='option5'> 20&nbsp
-        </label>
-        <label class='radio-inline'>
-          <input type='radio' name='radioTimeOption' id='radioTimeOption6' value='option6'> 60
-        </label>
-        </p>
+    <form>
+      <p>
+      Remind every (min):<br>
+      <label class='radio-inline'>
+        <input type='radio' name='radioTimeOption' id='radioTimeOption1' value='option1'> 1&nbsp
+      </label>
+      <label class='radio-inline'>
+        <input type='radio' name='radioTimeOption' id='radioTimeOption2' value='option2'> 3&nbsp
+      </label>
+      <label class='radio-inline'>
+        <input type='radio' name='radioTimeOption' id='radioTimeOption3' value='option3'> 5&nbsp
+      </label>
+      <label class='radio-inline'>
+        <input type='radio' name='radioTimeOption' id='radioTimeOption4' value='option4'> 10&nbsp
+      </label>
+      <label class='radio-inline'>
+        <input type='radio' name='radioTimeOption' id='radioTimeOption5' value='option5'> 20&nbsp
+      </label>
+      <label class='radio-inline'>
+        <input type='radio' name='radioTimeOption' id='radioTimeOption6' value='option6'> 60
+      </label>
+      </p>
 
-        <p>
-        Allowed site:<br>
-        <input type='url' name='allowedSite' id='allowedSiteField' required pattern='https?://.+'>
-        </p>
+      <p>
+      Allowed site:<br>
+      <input type='url' name='allowedSite' id='allowedSiteField' required pattern='https?://.+'>
+      </p>
 
-        <button type='submit' class='btn btn-default'>Submit</button>
-      </form>
+      <button type='submit' class='btn btn-default'>Submit</button>
+    </form>
+
+    <button type="button" class="btn btn-primary" onclick="finishHw">I'm done! :D</button>
   </body>
 </html>
