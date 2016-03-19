@@ -1,0 +1,45 @@
+<!--
+Created by Max Albert at Grizzhacks 16'
+Copyright (2016)
+All rights reserved
+Badassary
+-->
+
+<script id="jsbin-javascript">
+
+// Sets the website the notifcation will link to
+var mySite = "www.maxalbert.me";
+// This sets the amount of time the notifications spawn 
+var myTime = 3000;
+// This runs the function notifyMe every (value of myTime) miliseconds
+var myVar = setInterval(notifyMe, myTime);
+
+// request permission on page load
+document.addEventListener('DOMContentLoaded', function () {
+  if (Notification.permission !== "granted")
+    Notification.requestPermission();
+});
+
+function notifyMe() {
+  if (!Notification) {
+    alert('Desktop notifications not available in your browser. Try Chromium.'); 
+    return;
+  }
+
+  if (Notification.permission !== "granted")
+    Notification.requestPermission();
+  else {
+    var notification = new Notification('Reminder', {
+      icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
+      body: "You still have math homework to do!",
+    });
+
+    notification.onclick = function () {
+      window.open(mySite);      
+    };
+    
+  }
+
+}
+
+</script>
