@@ -2,16 +2,21 @@
   "manifest_version": 2,
 
   "name": "AssignMind",
-  "description": "Pretend there's a decent description here",
+  "description": "We send desktop notifcations to keep distracted 
+  students and employees on track!",
   "version": "1.0",
 
-  "browser_action": {
+  "browser_action": { 
     "default_icon": "images/icon.png",
     "default_popup": "popup.html"
   },
   "permissions": [
     "activeTab",
     "storage",
+    "notifcations",
     "https://ajax.googleapis.com/"
+  ],
+  "web_accessible_resources": [
+    "48.png"
   ]
 }
