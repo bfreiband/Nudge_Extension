@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+
 /**
  * Get the current URL.
  *
@@ -52,3 +53,44 @@ document.addEventListener('DOMContentLoaded', function() {
     //eventually do stuff
   });
 });
+
+// Sets the website the notifcation will link to
+var mySite = "http://www.maxalbert.me";
+// This sets the amount of time the notifications spawn 
+var myTime = 3000;
+// This runs the function notifyMe every (value of myTime) miliseconds
+var myVar = setInterval(notifyMe, myTime);
+
+
+
+// request permission on page load
+document.addEventListener('DOMContentLoaded', function () {
+  if (Notification.permission !== "granted")
+    Notification.requestPermission();
+});
+
+function notifyMe() {
+  if (!Notification) {
+    alert('Desktop notifications not available in your browser. Try Chromium.'); 
+    return;
+  }
+
+  if (Notification.permission !== "granted")
+    Notification.requestPermission();
+  else {
+    var notification = new Notification('Reminder', {
+      icon: 'http://icons.iconarchive.com/icons/flat-icons.com/flat/512/Pencil-icon.png',
+      body: "You still have math homework to do!",
+    });
+
+    notification.onclick = function () {
+      window.open(mySite);      
+    };
+
+  }
+
+}
+
+function finishHw() {
+  window.clearInterval(myVar);
+}

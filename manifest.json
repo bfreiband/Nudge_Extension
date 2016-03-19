@@ -13,10 +13,24 @@
   "permissions": [
     "activeTab",
     "storage",
-    "notifcations",
-    "https://ajax.googleapis.com/"
+    "notifications",
+    "https://ajax.googleapis.com/",
+    "https://*/*",
+    "http://*/*",
+    "tabs"
   ],
   "web_accessible_resources": [
-    
-  ]
+  ],
+
+   "background": {
+    "scripts": [
+      "popup.js"
+    ],
+    "persistent": true
+  },
+
+  "background": {
+    "page": "popup.html",
+    "persistent": true
+  }
 }
