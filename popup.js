@@ -47,16 +47,8 @@ function getCurrentTabUrl(callback) {
   // alert(url); // Shows "undefined", because chrome.tabs.query is async.
 }
 
-function renderStatus(statusText) {
-  document.getElementById('status').textContent = statusText;
-}
-
 document.addEventListener('DOMContentLoaded', function() {
   getCurrentTabUrl(function(url) {
-    renderStatus('URL: ' + url);
-
-    }, function(errorMessage) {
-      renderStatus('Something broke. Whoopsies. ' + errorMessage);
-    });
+    //eventually do stuff
   });
 });
