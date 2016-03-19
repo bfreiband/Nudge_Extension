@@ -1,16 +1,17 @@
 {
-  "manifest_version": 1,
+  "manifest_version": 2,
 
   "name": "AssignMind",
   "description": "Pretend there's a decent description here",
   "version": "1.0",
 
   "browser_action": {
-    "default_icon": "icon.png",
+    "default_icon": "images/icon.png",
     "default_popup": "popup.html"
   },
   "permissions": [
     "activeTab",
+    "storage",
     "https://ajax.googleapis.com/"
   ]
 }
