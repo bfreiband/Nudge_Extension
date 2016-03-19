@@ -6,12 +6,15 @@
  -->
 <html>
   <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>AssignMind</title>
     <style>
       body {
-        font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
-        font-size: 100%;
-        white-space: nowrap;
+/*        white-space: nowrap;*/
+          width: 300px;
       }
     </style>
 
@@ -32,9 +35,37 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   </head>
-  
+
   <body>
-    <form>
-    </form>
+      <form>
+        <p>
+        Remind every (min):<br>
+        <label class='radio-inline'>
+          <input type='radio' name='radioTimeOption' id='radioTimeOption1' value='option1'> 1&nbsp
+        </label>
+        <label class='radio-inline'>
+          <input type='radio' name='radioTimeOption' id='radioTimeOption2' value='option2'> 3&nbsp
+        </label>
+        <label class='radio-inline'>
+          <input type='radio' name='radioTimeOption' id='radioTimeOption3' value='option3'> 5&nbsp
+        </label>
+        <label class='radio-inline'>
+          <input type='radio' name='radioTimeOption' id='radioTimeOption4' value='option4'> 10&nbsp
+        </label>
+        <label class='radio-inline'>
+          <input type='radio' name='radioTimeOption' id='radioTimeOption5' value='option5'> 20&nbsp
+        </label>
+        <label class='radio-inline'>
+          <input type='radio' name='radioTimeOption' id='radioTimeOption6' value='option6'> 60
+        </label>
+        </p>
+
+        <p>
+        Allowed site:<br>
+        <input type='url' name='allowedSite' id='allowedSiteField' required pattern='https?://.+'>
+        </p>
+
+        <button type='submit' class='btn btn-default'>Submit</button>
+      </form>
   </body>
 </html>
