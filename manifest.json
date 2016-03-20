@@ -13,6 +13,7 @@
   "permissions": [
     "activeTab",
     "storage",
+    "alarms",
     "notifications",
     "https://ajax.googleapis.com/",
     "https://*/*",

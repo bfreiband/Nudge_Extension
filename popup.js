@@ -2,7 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-
 /**
  * Get the current URL.
  *
@@ -54,20 +53,17 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// Sets the website the notifcation will link to
-var mySite = "http://www.maxalbert.me";
-// This sets the amount of time the notifications spawn 
-var myTime = 3000;
-// This runs the function notifyMe every (value of myTime) miliseconds
-var myVar = setInterval(notifyMe, myTime);
-
-
-
 // request permission on page load
 document.addEventListener('DOMContentLoaded', function () {
   if (Notification.permission !== "granted")
     Notification.requestPermission();
 });
+
+  var mySite = "http://www.maxalbert.me";
+  // This sets the amount of time the notifications spawn 
+  var myTime = 3000;
+  // This runs the function notifyMe every (value of myTime) miliseconds
+  var myVar = setInterval(notifyMe, myTime);
 
 function notifyMe() {
   if (!Notification) {
@@ -84,13 +80,11 @@ function notifyMe() {
     });
 
     notification.onclick = function () {
-      window.open(mySite);      
+      window.open(mySite);
     };
-
   }
-
 }
 
-function finishHw() {
-  window.clearInterval(myVar);
-}
+chrome.alarms.onAlarm.addListener(function( alarm ) {
+  console.log("Got an alarm!", alarm);
+});
