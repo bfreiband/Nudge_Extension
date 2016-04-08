@@ -19,17 +19,30 @@ var options3 = {
   message: "No more homework means no more notifications. See you next time! :)"
 }
 
-var penis = 1;
+var activeTab;
 
 function onStart() {
-  console.log("buttsex");
   chrome.notifications.create(options1);
-  penis = 1337;
+  chrome.alarms.create("distractionAlarm", {periodInMinutes: .1});
 }
 
+chrome.alarms.onAlarm.addListener(function(alarm) {
+  //Gets current tab and stores data in activeTab
+  chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
+    activeTab = (tabs[0].url);
+  });
+
+  console.log(activeTab);
+
+  //Checks to see if user is on one of the "blacklisted" sites
+  if(activeTab.includes("facebook.com")) {
+    chrome.notifications.create(options2);
+  }
+});
+
 function onFinish() {
-  console.log(penis);
   chrome.notifications.create(options3);
+  chrome.alarms.clearAll();
 }
 
 document.addEventListener('DOMContentLoaded', function () {
