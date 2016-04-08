@@ -4,9 +4,6 @@ a { color: #ff6600; transition: .5s; -moz-transition: .5s; -webkit-transition: .
 a:hover { text-decoration: underline }
 
 
-h1 { padding-bottom: 15px }
-
-
 h1 a { font-family: 'Open Sans Condensed', sans-serif; font-size: 48px; color: #333; }
 
 

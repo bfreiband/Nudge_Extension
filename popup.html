@@ -10,20 +10,33 @@
     <div class="col-md-6 col-md-offset-3">
       <h1>AssignMind</h1>
       <p>How often do you want reminders?</p>
-        <div class="radio" id="form">
-            <div class="btn-group" role="group" aria-label="Basic example">
-              <button type="button" class="btn btn-primary" onclick="onR1()">3 Minutes</button>
-              <button type="button" class="btn btn-primary" onclick="onR2()">10 Minutes</button>
-              <button type="button" class="btn btn-primary" onclick="onR3()">20 Minutes</button>
-          </div>
-        </div>
-      <p>Where are you working today?</p>
-      <input class="form-control" id="f1" type="text" placeholder="http://www.website.com">
+      <p>Every 
+      <select id='timeSetting'>
+        <option value="1">1</option>
+        <option value="3">3</option>
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+        <option value="30">30</option>
+        <option value="45">45</option>
+        <option value="60">60</option>
+      </select>
+      minute(s)</p>
+      <p>Where are you working today?<br>
+        <input type="text" id="goodTextField" placeholder="http://www.website.com"></input>
+      </p>
+      <p>Add sites to your blacklist:<br>
+        <input type='text' id='badTextField' placeholder='http://www.distraction.com'></input>
+        <input type='button' id='addToBlacklistButton' value='Add'></input>
+      </p>
+      <p>Remove sites from your blacklist:<br>
+        <select id='blacklistedSites'></select>
       <br>
       <form name='testForm'>
-            <input type='button' id='activate' value='Activate'>
-            <input type='button' id='deactivate' value='Deactivate'>
-        </form>
+        <input type='button' id='activate' value='Activate'>
+        <input type='button' id='deactivate' value='Deactivate'>
+      </form>
     </div>
   </body>
 </html>

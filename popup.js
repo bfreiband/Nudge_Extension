@@ -20,10 +20,20 @@ var options3 = {
 }
 
 var activeTab;
+var blacklist = ['facebook.com', 'twitter.com'];
 
 function onStart() {
   chrome.notifications.create(options1);
   chrome.alarms.create("distractionAlarm", {periodInMinutes: .1});
+}
+
+function onFinish() {
+  chrome.notifications.create(options3);
+  chrome.alarms.clearAll();
+}
+
+function onAddToBlacklist() {
+
 }
 
 chrome.alarms.onAlarm.addListener(function(alarm) {
@@ -40,12 +50,26 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
   }
 });
 
-function onFinish() {
-  chrome.notifications.create(options3);
-  chrome.alarms.clearAll();
-}
-
 document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('activate').addEventListener('click', onStart);
-    document.getElementById('deactivate').addEventListener('click', onFinish);
+  document.getElementById('activate').addEventListener('click', onStart);
+  document.getElementById('deactivate').addEventListener('click', onFinish);
+  document.getElementById('addToBlacklistButton').addEventListener('click', onAddToBlacklist);
+  chrome.storage.sync.get('prepopulated', function(data) {
+    if(chrome.runtime.lastError) {
+      chrome.storage.sync.set({
+        blacklist: ['facebook.com','twitter.com'],
+        prepopulated: 1
+      });
+    }
+
+    chrome.storage.sync.get('blacklist', function(result) {
+      var blacklistDropdown = document.getElementById('blacklistedSites');
+      for(site in result) {
+        var option = document.createElement("option");
+        option.text = site;
+        option.value = site;
+        blacklistDropdown.add(option);
+      }
+    });
+  });
 });
