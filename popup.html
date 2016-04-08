@@ -1,29 +1,8 @@
-<!doctype html>
-<!--
- This page is shown when the extension button is clicked, because the
- "browser_action" field in manifest.json contains the "default_popup" key with
- value "popup.html".
- -->
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>AssignMind</title>
-    <style>
-      body {
-/*        white-space: nowrap;*/
-          width: 300px;
-      }
-    </style>
 
-    <!--
-      - JavaScript and HTML must be in separate files: see our Content Security
-      - Policy documentation[1] for details and explanation.
-      -
-      - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
-     -->
+    <link rel="stylesheet" type="text/css" href="standard.css">
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -34,41 +13,23 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   </head>
-
   <body>
-    <button id="toggleAlarm">Activate alarm</button>
-    <script src="js/alarms.js"></script>
-      <p>
-      Remind every (min):<br>
-      <label class='radio-inline'>
-        <input type='radio' name='radioTimeOption' id='radioTimeOption1' value='option1'> 1&nbsp
-      </label>
-      <label class='radio-inline'>
-        <input type='radio' name='radioTimeOption' id='radioTimeOption2' value='option2'> 3&nbsp
-      </label>
-      <label class='radio-inline'>
-        <input type='radio' name='radioTimeOption' id='radioTimeOption3' value='option3'> 5&nbsp
-      </label>
-      <label class='radio-inline'>
-        <input type='radio' name='radioTimeOption' id='radioTimeOption4' value='option4'> 10&nbsp
-      </label>
-      <label class='radio-inline'>
-        <input type='radio' name='radioTimeOption' id='radioTimeOption5' value='option5'> 20&nbsp
-      </label>
-      <label class='radio-inline'>
-        <input type='radio' name='radioTimeOption' id='radioTimeOption6' value='option6'> 60
-      </label>
-      </p>
-
-      <p>
-      Allowed site:<br>
-      <input type='url' name='allowedSite' id='allowedSiteField' required pattern='https?://.+'>
-      </p>
-
-      <button type='submit' class='btn btn-default'>Submit</button>
-    </form>
-
-    <button type="button" class="btn btn-primary" id='stopButton'>I'm done! :D</button>
-    <script type='text/javascript' src="popup.js"></script>
+    <div class="col-md-6 col-md-offset-3">
+      <h1>AssignMind</h1>
+      <p>How often do you want reminders?</p>
+        <div class="radio" id="form">
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <button type="button" class="btn btn-primary" onclick="onR1()">3 Minutes</button>
+              <button type="button" class="btn btn-primary" onclick="onR2()">10 Minutes</button>
+              <button type="button" class="btn btn-primary" onclick="onR3()">20 Minutes</button>
+          </div>
+        </div>
+      <p>Where are you working today?</p>
+      <input class="form-control" id="f1" type="text" placeholder="http://www.website.com">
+      <br>
+      <button type="button" class="btn btn-primary btn-lg" onclick="onStart()">Activate</button>
+      <button type="button" class="btn btn-primary btn-lg" onclick="onStop()">Deactivate</button>
+    </div>
   </body>
 </html>
+
