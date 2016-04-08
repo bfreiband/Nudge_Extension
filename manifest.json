@@ -11,7 +11,7 @@
   },
   "background": {
     "scripts": ["popup.js"],
-    "persistent": false
+    "persistent": true
   },
   "permissions": [
     "tabs",

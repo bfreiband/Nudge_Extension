@@ -4,14 +4,7 @@
 
     <link rel="stylesheet" type="text/css" href="standard.css">
 
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script language='javascript' src='popup.js'></script>
   </head>
   <body>
     <div class="col-md-6 col-md-offset-3">
@@ -27,9 +20,10 @@
       <p>Where are you working today?</p>
       <input class="form-control" id="f1" type="text" placeholder="http://www.website.com">
       <br>
-      <button id='activate' class="btn btn-primary btn-lg">Activate</button>
-      <script type="text/javascript" src="popup.js"></script>
-      <button type="button" class="btn btn-primary btn-lg">Deactivate</button>
+      <form name='testForm'>
+            <input type='button' id='activate' value='Activate'>
+            <input type='button' id='deactivate' value='Deactivate'>
+        </form>
     </div>
   </body>
 </html>
