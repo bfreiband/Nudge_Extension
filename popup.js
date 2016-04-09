@@ -27,10 +27,12 @@ function onStart() {
   var minutes = parseFloat(document.getElementById('timeSetting').value);
   goodSite = document.getElementById('goodTextField').value;
 
+  chrome.storage.sync.set({'mySite': goodSite});
+
   chrome.notifications.create('activation', options1);
   chrome.alarms.clearAll();
-  console.log(minutes);
-  console.log(typeof minutes);
+  //console.log(minutes);
+  //console.log(typeof minutes);
   chrome.alarms.create("distractionAlarm", {periodInMinutes: minutes});
 }
 
@@ -114,15 +116,17 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
     }
   });
 
-  console.log(activeTab);
+  //console.log(activeTab);
 
 });
 
 chrome.notifications.onClicked.addListener(function(notificationId) {
-  if(notificationId == 'distraction') {
-    //chrome.tabs.update(activeTab, {url: goodSite});
-    window.open(goodSite,'_blank');
-  }
+  chrome.storage.sync.get('mySite', function(site) {
+    if(site.mySite != '') {
+      //chrome.tabs.update(activeTab, {url: goodSite});
+      window.open(site.mySite, '_blank');
+    }
+  });
 });
 
 document.addEventListener('DOMContentLoaded', function () {
