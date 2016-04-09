@@ -32,7 +32,43 @@ function onFinish() {
 }
 
 function onAddToBlacklist() {
+  var textField = document.getElementById('badTextField');
+  var textFieldValue = textField.value.replace(/\s+/g, '');
 
+  //If the text field isn't empty:
+  //  Add the contents of it to the dropdown
+  //  Clear it
+  //  Add its former contents to the chrome.storage.sync 'blacklist' array
+  if(textFieldValue != '') {
+    var dropdown = document.getElementById('blacklistedSites');
+
+    dropdown.options[dropdown.options.length] = new Option(textFieldValue, textFieldValue);
+    textField.value = '';
+
+    chrome.storage.sync.get('blacklist', function(result_blist) {
+      chrome.storage.sync.get('prepopulated', function(result_ppop) {
+        var theArray = result_blist.blacklist;
+        theArray[theArray.length] = textFieldValue;
+        var blacklistObj = {
+          'blacklist': theArray,
+          'prepopulated': result_ppop.prepopulated
+        }
+
+        chrome.storage.sync.set(blacklistObj, function() {
+        })
+      })
+    })
+  }
+}
+
+function setBlacklistDropdown() {
+  chrome.storage.sync.get("blacklist", function(result) {
+    var dropdown = document.getElementById('blacklistedSites');
+
+    for (var index = 0; index < result.blacklist.length; index++) {
+      dropdown.options[dropdown.options.length] = new Option(result.blacklist[index], result.blacklist[index]);
+    }
+  });
 }
 
 chrome.alarms.onAlarm.addListener(function(alarm) {
@@ -50,10 +86,12 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
 });
 
 document.addEventListener('DOMContentLoaded', function () {
+  //Add click listeners to the 'activate', 'deactivate', and 'addToBlacklistButton' buttons
   document.getElementById('activate').addEventListener('click', onStart);
   document.getElementById('deactivate').addEventListener('click', onFinish);
   document.getElementById('addToBlacklistButton').addEventListener('click', onAddToBlacklist);
 
+  //Populate the 'blacklistedSites' dropdown from chrome.storage.sync
   chrome.storage.sync.get('prepopulated', function(data) {
     if(typeof (data.prepopulated) == 'undefined') {
       var prepopSites = ["facebook.com", "twitter.com"];
@@ -63,20 +101,8 @@ document.addEventListener('DOMContentLoaded', function () {
       }
       chrome.storage.sync.set(blacklistObj, setBlacklistDropdown);
     }
-
     else {
       setBlacklistDropdown();
     }
   });
 });
-
-
-function setBlacklistDropdown() {
-  chrome.storage.sync.get("blacklist", function(result) {
-    var dropdown = document.getElementById('blacklistedSites');
-
-    for (var index = 0; index < result.blacklist.length; index++) {
-      dropdown.options[dropdown.options.length] = new Option(result.blacklist[index], result.blacklist[index]);
-    }
-  });
-}
