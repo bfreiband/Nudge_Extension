@@ -120,7 +120,8 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
 
 chrome.notifications.onClicked.addListener(function(notificationId) {
   if(notificationId == 'distraction') {
-    chrome.tabs.update(activeTab, {url: goodSite});
+    //chrome.tabs.update(activeTab, {url: goodSite});
+    window.open(goodSite,'_blank');
   }
 });
 
@@ -130,6 +131,11 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('deactivate').addEventListener('click', onFinish);
   document.getElementById('addToBlacklistButton').addEventListener('click', onAddToBlacklist);
   document.getElementById('removeFromBlacklistButton').addEventListener('click', onRemoveFromBlacklist);
+
+  //Footer Links
+  document.getElementById('source').addEventListener('click', onSource);
+  document.getElementById('max').addEventListener('click', onMax);
+  document.getElementById('ben').addEventListener('click', onBen);
 
   //Populate the 'blacklistedSites' dropdown from chrome.storage.sync
   chrome.storage.sync.get('prepopulated', function(data) {
@@ -145,3 +151,15 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
+
+function onSource() {
+  window.open("https://github.com/bfreiband/AssignMind", '_blank');
+}
+
+function onMax() {
+  window.open("http://maxalbert.me", '_blank');
+}
+
+function onBen() {
+  window.open("http://benfreiband.rocks", '_blank');
+}

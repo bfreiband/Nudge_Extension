@@ -20,3 +20,5 @@ a.more-link:hover { text-decoration: none; background-color: #666; border-radius
 
 
 body {width: 500px;}
+
+#footer {font-style: italic; font-size: 9px}
