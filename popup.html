@@ -12,7 +12,7 @@
       <p>How often do you want reminders?</p>
       <p>Every 
       <select id='timeSetting'>
-        <option value="1">1</option>
+        <option value=".1">1</option>  <!-- CHANGE THIS VALUE BACK TO 60 WHEN DONE TESTING!!-->
         <option value="3">3</option>
         <option value="5">5</option>
         <option value="10">10</option>
@@ -32,12 +32,10 @@
       </p>
       <p>Remove sites from your blacklist:<br>
         <select id='blacklistedSites'></select>
-        <br>
-        <form name='testForm'>
-          <input type='button' id='activate' value='Activate'>
-          <input type='button' id='deactivate' value='Deactivate'>
-        </form>
+        <input type='button' id='removeFromBlacklistButton' value='Remove'></input>
       </p>
+        <input type='button' id='activate' value='Activate'>
+        <input type='button' id='deactivate' value='Deactivate'>
     </div>
   </body>
 </html>

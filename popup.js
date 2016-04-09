@@ -1,33 +1,41 @@
 var options1 = {
   type: "basic",
   title: "Homework Mode Activated!",
-  iconUrl: "Icon.png",
+  iconUrl: "icon.png",
   message: "We'll let you know if you get distracted"
 }
 
 var options2 = {
   type: "basic",
   title: "Distraction Alert!",
-  iconUrl: "Icon.png",
+  iconUrl: "icon.png",
   message: "You still have unfinished homework :("
 }
 
 var options3 = {
   type: "basic",
   title: "Homework Mode Deactivated",
-  iconUrl: "Icon.png",
+  iconUrl: "icon.png",
   message: "No more homework means no more notifications. See you next time! :)"
 }
 
 var activeTab;
+var goodSite;
+var blacklistArray = ['facebook.com','twitter.com'];
 
 function onStart() {
-  chrome.notifications.create(options1);
-  chrome.alarms.create("distractionAlarm", {periodInMinutes: .1});
+  var minutes = parseFloat(document.getElementById('timeSetting').value);
+  goodSite = document.getElementById('goodTextField').value;
+
+  chrome.notifications.create('activation', options1);
+  chrome.alarms.clearAll();
+  console.log(minutes);
+  console.log(typeof minutes);
+  chrome.alarms.create("distractionAlarm", {periodInMinutes: minutes});
 }
 
 function onFinish() {
-  chrome.notifications.create(options3);
+  chrome.notifications.create('deactivation', options3);
   chrome.alarms.clearAll();
 }
 
@@ -47,21 +55,43 @@ function onAddToBlacklist() {
 
     chrome.storage.sync.get('blacklist', function(result_blist) {
       chrome.storage.sync.get('prepopulated', function(result_ppop) {
-        var theArray = result_blist.blacklist;
-        theArray[theArray.length] = textFieldValue;
+        blacklistArray = result_blist.blacklist;
+        blacklistArray[blacklistArray.length] = textFieldValue;
         var blacklistObj = {
-          'blacklist': theArray,
+          'blacklist': blacklistArray,
           'prepopulated': result_ppop.prepopulated
         }
 
-        chrome.storage.sync.set(blacklistObj, function() {
-        })
+        chrome.storage.sync.set(blacklistObj);
       })
     })
   }
 }
 
-function setBlacklistDropdown() {
+function onRemoveFromBlacklist() {
+  var dropdown = document.getElementById('blacklistedSites');
+  var dropdownValue = dropdown.value;
+  dropdown.remove(dropdown.selectedIndex);
+
+  chrome.storage.sync.get('blacklist', function(result_blist) {
+    chrome.storage.sync.get('prepopulated', function(result_ppop) {
+      blacklistArray = result_blist.blacklist;
+      var itemIndex = blacklistArray.indexOf(dropdownValue);
+      if(itemIndex > -1) {
+        blacklistArray.splice(itemIndex, 1);
+      }
+
+      var blacklistObj = {
+        'blacklist': blacklistArray,
+        'prepopulated': result_ppop.prepopulated
+      }
+
+      chrome.storage.sync.set(blacklistObj);
+    })
+  })
+}
+
+function populateFields() {
   chrome.storage.sync.get("blacklist", function(result) {
     var dropdown = document.getElementById('blacklistedSites');
 
@@ -75,13 +105,22 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
   //Gets current tab and stores data in activeTab
   chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
     activeTab = (tabs[0].url);
+
+    //Checks to see if user is on a "blacklisted" site
+    for(var count = 0; count < blacklistArray.length; count++) {
+      if(activeTab.includes(blacklistArray[count])) {
+        chrome.notifications.create('distraction', options2);
+      }
+    }
   });
 
   console.log(activeTab);
 
-  //Checks to see if user is on one of the "blacklisted" sites
-  if(activeTab.includes("facebook.com")) {
-    chrome.notifications.create(options2);
+});
+
+chrome.notifications.onClicked.addListener(function(notificationId) {
+  if(notificationId == 'distraction') {
+    chrome.tabs.update(activeTab, {url: goodSite});
   }
 });
 
@@ -90,19 +129,19 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('activate').addEventListener('click', onStart);
   document.getElementById('deactivate').addEventListener('click', onFinish);
   document.getElementById('addToBlacklistButton').addEventListener('click', onAddToBlacklist);
+  document.getElementById('removeFromBlacklistButton').addEventListener('click', onRemoveFromBlacklist);
 
   //Populate the 'blacklistedSites' dropdown from chrome.storage.sync
   chrome.storage.sync.get('prepopulated', function(data) {
     if(typeof (data.prepopulated) == 'undefined') {
-      var prepopSites = ["facebook.com", "twitter.com"];
       var blacklistObj = {
-        'blacklist': prepopSites,
+        'blacklist': blacklistArray,
         'prepopulated': 1
       }
-      chrome.storage.sync.set(blacklistObj, setBlacklistDropdown);
+      chrome.storage.sync.set(blacklistObj, populateFields);
     }
     else {
-      setBlacklistDropdown();
+      populateFields();
     }
   });
 });
