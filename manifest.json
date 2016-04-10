@@ -10,7 +10,7 @@
     "default_popup": "popup.html"
   },
   "icons": {
-    "48": "Icon48.png"
+    "48": "icon48.png"
   },
   "background": {
     "scripts": ["popup.js"],
