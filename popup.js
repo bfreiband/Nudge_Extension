@@ -108,12 +108,14 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
   chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
     activeTab = (tabs[0].url);
 
-    //Checks to see if user is on a "blacklisted" site
-    for(var count = 0; count < blacklistArray.length; count++) {
-      if(activeTab.includes(blacklistArray[count])) {
-        chrome.notifications.create('distraction', options2);
+    chrome.storage.sync.get("blacklist", function(result) {
+        //Checks to see if user is on a "blacklisted" site
+      for(var count = 0; count < result.blacklist.length; count++) {
+        if(activeTab.includes(result.blacklist[count])) {
+          chrome.notifications.create('distraction', options2);
+        }
       }
-    }
+    })
   });
 
   //console.log(activeTab);
