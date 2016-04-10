@@ -12,7 +12,7 @@
       <p>How often do you want reminders?</p>
       <p>Every 
       <select id='timeSetting'>
-        <option value=".1">1</option>  <!-- CHANGE THIS VALUE BACK TO 60 WHEN DONE TESTING!!-->
+        <option value="1">1</option>  <!-- CHANGE THIS VALUE BACK TO 1 WHEN DONE TESTING!!-->
         <option value="3">3</option>
         <option value="5">5</option>
         <option value="10">10</option>
@@ -24,7 +24,7 @@
       </select>
       minute(s)</p>
       <p>Where are you working today?<br>
-        <input type="text" id="goodTextField" placeholder="http://www.website.com">
+        <input type="url" id="goodTextField" required placeholder="http://www.website.com">
       </p>
       <p>Add sites to your blacklist:<br>
         <input type='text' id='badTextField' placeholder='http://www.distraction.com'>
@@ -37,13 +37,14 @@
         <input type='button' id='activate' value='Activate'>
         <input type='button' id='deactivate' value='Deactivate'>
       <br>
-        <p id="footer"><a id="source" href="https://github.com/bfreiband/AssignMind">View Source</a>
+        <p id="footer">
+          <a id="source" href="https://github.com/bfreiband/AssignMind">View Source</a>
          - App created by 
          <a id="max" href="https://maxalbert.me">Max Albert</a>
           and 
          <a id="ben" href="https://benfreiband.rocks">Ben Freiband</a>
           - Copyright 2016
-        </p>
+      </p>
     </div>
   </body>
 </html>

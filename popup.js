@@ -25,20 +25,39 @@ var blacklistArray = ['facebook.com','twitter.com'];
 
 function onStart() {
   var minutes = parseFloat(document.getElementById('timeSetting').value);
-  goodSite = document.getElementById('goodTextField').value;
+  var goodTextField = document.getElementById('goodTextField');
+  goodSite = goodTextField.value;
+  var validURL_re = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/;
+  if (!validURL_re.test(goodSite) && (goodSite != '')) {
+    goodTextField.className = goodTextField.className + ' error';
+  }
+  else {
+    if(hasClass(goodTextField, 'error')) {
+      goodTextField.className = goodTextField.className.replace(' error', '');
+    }
 
-  chrome.storage.sync.set({'mySite': goodSite});
+    var hasHTTP_re = /^(http[s]?:\/\/){0,1}/;
 
-  chrome.notifications.create('activation', options1);
-  chrome.alarms.clearAll();
-  //console.log(minutes);
-  //console.log(typeof minutes);
-  chrome.alarms.create("distractionAlarm", {periodInMinutes: minutes});
+    if(hasHTTP_re.test(goodSite)) {
+      goodSite = goodSite.replace(/^(http[s]?:\/\/){0,1}/, '');
+    }
+    chrome.storage.sync.set({'mySite': goodSite});
+    chrome.storage.sync.set({'isActive': true});
+
+    chrome.notifications.create('activation', options1);
+    chrome.alarms.clearAll();
+    chrome.alarms.create("distractionAlarm", {periodInMinutes: minutes});
+  }
 }
 
 function onFinish() {
-  chrome.notifications.create('deactivation', options3);
-  chrome.alarms.clearAll();
+  chrome.storage.sync.get('isActive', function(result) {
+    if(result.isActive) {
+      chrome.notifications.create('deactivation', options3);
+      chrome.alarms.clearAll();
+      chrome.storage.sync.set({'isActive': false});
+    }
+  })
 }
 
 function onAddToBlacklist() {
@@ -103,13 +122,17 @@ function populateFields() {
   });
 }
 
+function hasClass(element, cls) {
+  return (' '+element.className + ' ').indexOf(' ' + cls + ' ') > -1;
+}
+
 chrome.alarms.onAlarm.addListener(function(alarm) {
   //Gets current tab and stores data in activeTab
   chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
     activeTab = (tabs[0].url);
 
     chrome.storage.sync.get("blacklist", function(result) {
-        //Checks to see if user is on a "blacklisted" site
+      //Checks to see if user is on a "blacklisted" site
       for(var count = 0; count < result.blacklist.length; count++) {
         if(activeTab.includes(result.blacklist[count])) {
           chrome.notifications.create('distraction', options2);
@@ -117,16 +140,12 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
       }
     })
   });
-
-  //console.log(activeTab);
-
 });
 
 chrome.notifications.onClicked.addListener(function(notificationId) {
   chrome.storage.sync.get('mySite', function(site) {
     if(site.mySite != '') {
-      //chrome.tabs.update(activeTab, {url: goodSite});
-      window.open(site.mySite, '_blank');
+      window.open('http://'+site.mySite, '_blank');
     }
   });
 });
@@ -148,7 +167,8 @@ document.addEventListener('DOMContentLoaded', function () {
     if(typeof (data.prepopulated) == 'undefined') {
       var blacklistObj = {
         'blacklist': blacklistArray,
-        'prepopulated': 1
+        'prepopulated': 1,
+        'isActive': false
       }
       chrome.storage.sync.set(blacklistObj, populateFields);
     }
