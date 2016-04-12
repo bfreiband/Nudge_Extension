@@ -143,11 +143,13 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
 });
 
 chrome.notifications.onClicked.addListener(function(notificationId) {
-  chrome.storage.sync.get('mySite', function(site) {
-    if(site.mySite != '') {
-      window.open('http://'+site.mySite, '_blank');
-    }
-  });
+  if(notificationId == 'distraction') {
+    chrome.storage.sync.get('mySite', function(site) {
+      if(site.mySite != '') {
+        window.open('http://'+site.mySite, '_blank');
+      }
+    });
+  }
 });
 
 document.addEventListener('DOMContentLoaded', function () {
