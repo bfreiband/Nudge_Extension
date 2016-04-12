@@ -152,6 +152,13 @@ chrome.notifications.onClicked.addListener(function(notificationId) {
   }
 });
 
+document.onkeydown = function (evt) {
+  var keyCode = evt ? (evt.which ? evt.which : evt.keyCode) : event.keyCode;
+  if (keyCode == 13) {
+    onStart();
+  }
+};
+
 document.addEventListener('DOMContentLoaded', function () {
   //Add click listeners to the 'activate', 'deactivate', and 'addToBlacklistButton' buttons
   document.getElementById('activate').addEventListener('click', onStart);
