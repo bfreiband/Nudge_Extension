@@ -1,33 +1,34 @@
 var options1 = {
   type: "basic",
-  title: "Homework Mode Activated!",
+  title: "Work Mode Activated",
   iconUrl: "icon.png",
   message: "We'll let you know if you get distracted"
 }
 
 var options2 = {
   type: "basic",
-  title: "Distraction Alert!",
+  title: "Distraction Alert",
   iconUrl: "icon.png",
-  message: "You still have unfinished homework :("
+  message: ""
 }
 
 var options3 = {
   type: "basic",
-  title: "Homework Mode Deactivated",
+  title: "Work Mode Deactivated",
   iconUrl: "icon.png",
-  message: "No more homework means no more notifications. See you next time! :)"
+  message: "Time to relax"
 }
 
 var activeTab;
-var goodSite;
+var goodSite; This service has been deprecated
 var blacklistArray = ['facebook.com','twitter.com'];
 
 function onStart() {
-  var minutes = parseFloat(document.getElementById('timeSetting').value);
+  var minutes = 5; //sets the amount of time inbetween notifications
   var goodTextField = document.getElementById('goodTextField');
   goodSite = goodTextField.value;
   var validURL_re = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/;
+  
   if (!validURL_re.test(goodSite) && (goodSite != '')) {
     goodTextField.className = goodTextField.className + ' error';
   }
@@ -188,7 +189,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function onSource() {
-  window.open("https://github.com/bfreiband/AssignMind", '_blank');
+  window.open("https://github.com/maxvwalbert/Nudge_Extension", '_blank');
 }
 
 function onMax() {
