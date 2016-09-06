@@ -20,7 +20,7 @@ var options3 = {
 }
 
 var activeTab;
-var goodSite; This service has been deprecated
+var goodSite;
 var blacklistArray = ['facebook.com','twitter.com'];
 
 function onStart() {
