@@ -20,13 +20,47 @@ a.more-link:hover { text-decoration: none; background-color: #666; border-radius
 
 
 body {border-style: solid;
-    border-width: 5px; width: 240px; height: 366px;}
+    border-width: 5px; width: 240px; height: 275px; text-align: center;}
+
+input[type=text] {
+	border: none;
+    border-bottom: 2px solid #2eb1ff;
+    width: 142px;
+}
+
+input[type=url] {
+	border: none;
+    border-bottom: 2px solid #2eb1ff;
+}
+
+input[type=button] {
+	background-color: white;
+    color: black;
+    border: 1px solid gray;
+    border-radius: 8px;
+    -webkit-transition-duration: 0.2s; /* Safari */
+    transition-duration: 0.2s;
+}
+
+input[type=button]:hover {
+	background-color: #2eb1ff;
+	border: 1px solid #2eb1ff;
+    border-radius: 8px;
+    color: white;
+}
+
+select {
+	background-color: white;
+    color: black;
+    border: 1px solid gray;
+    border-radius: 8px;
+}
 
 .error {
 	border: 2px solid red;
 	border-radius: 3px;
 }
 
-#footer {font-style: italic; font-size: 12px; background-color: #2EB1FF; min-height: 46px; margin-left: 0px; text-align: center;}
+#footer {font-style: italic; font-size: 6px; margin-left: 0px; text-align: center;}
 
 
