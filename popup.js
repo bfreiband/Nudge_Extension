@@ -1,6 +1,6 @@
 var options1 = {
   type: "basic",
-  title: "Work Mode Activated",
+  title: "Notifications Activated",
   iconUrl: "icon.png",
   message: "We'll let you know if you get distracted"
 }
@@ -9,12 +9,12 @@ var options2 = {
   type: "basic",
   title: "Distraction Alert",
   iconUrl: "icon.png",
-  message: ""
+  message: "There's work to be done"
 }
 
 var options3 = {
   type: "basic",
-  title: "Work Mode Deactivated",
+  title: "Notifications Deactivated",
   iconUrl: "icon.png",
   message: "Time to relax"
 }
@@ -61,6 +61,7 @@ function onFinish() {
   })
 }
 
+/*this function adds the value in the text field to the blacklist*/
 function onAddToBlacklist() {
   var textField = document.getElementById('badTextField');
   var textFieldValue = textField.value.replace(/\s+/g, '');
@@ -88,6 +89,29 @@ function onAddToBlacklist() {
       })
     })
   }
+}
+
+/* this fuction adds the current tab to the blacklist*/
+function onAddToBlacklist2() {
+  chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
+    activeTab = (tabs[0].url);
+
+    var dropdown = document.getElementById('blacklistedSites');
+    dropdown.options[dropdown.options.length] = new Option(activeTab, activeTab);
+
+    chrome.storage.sync.get('blacklist', function(result_blist) {
+      chrome.storage.sync.get('prepopulated', function(result_ppop) {
+        blacklistArray = result_blist.blacklist;
+        blacklistArray[blacklistArray.length] = activeTab;
+        var blacklistObj = {
+          'blacklist': blacklistArray,
+          'prepopulated': result_ppop.prepopulated
+        }
+
+        chrome.storage.sync.set(blacklistObj);
+      })
+    })
+  })
 }
 
 function onRemoveFromBlacklist() {
@@ -165,6 +189,7 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('activate').addEventListener('click', onStart);
   document.getElementById('deactivate').addEventListener('click', onFinish);
   document.getElementById('addToBlacklistButton').addEventListener('click', onAddToBlacklist);
+  document.getElementById('addToBlacklistButton2').addEventListener('click', onAddToBlacklist2);
   document.getElementById('removeFromBlacklistButton').addEventListener('click', onRemoveFromBlacklist);
 
   //Footer Links
