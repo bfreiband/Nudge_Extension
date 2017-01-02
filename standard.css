@@ -10,7 +10,7 @@ h1 a { font-family: 'Open Sans Condensed', sans-serif; font-size: 48px; color: #
 h1 a:hover { color: #ff6600; text-decoration: none; }
 
 
-p { font-family: 'Muli', sans-serif; margin-bottom: 15px; margin-left: 3px;}
+p { font-family: 'Muli', sans-serif; margin-bottom: 20px; margin-left: 3px;}
 
 
 a.more-link { color: white; font-weight: bold; font-size: 14px; font-family: Arial, Helvetica, sans-serif; padding: 3px 10px; background-color: #ff6600; border-radius: 5px; float: right; }
@@ -34,18 +34,23 @@ input[type=url] {
 }
 
 input[type=button] {
-	background-color: white;
+
+    background-color: white;
+    color: black;
+    border: 2px solid #2eb1ff;
+
+	/*background-color: white;
     color: black;
     border: 1px solid gray;
     border-radius: 8px;
     -webkit-transition-duration: 0.2s; /* Safari */
-    transition-duration: 0.2s;
+    /*transition-duration: 0.2s;*/
 }
 
 input[type=button]:hover {
 	background-color: #2eb1ff;
 	border: 1px solid #2eb1ff;
-    border-radius: 8px;
+    /*border-radius: 8px;*/
     color: white;
 }
 

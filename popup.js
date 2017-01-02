@@ -25,17 +25,8 @@ var blacklistArray = ['facebook.com','twitter.com'];
 
 function onStart() {
   var minutes = 5; //sets the amount of time inbetween notifications
-  var goodTextField = document.getElementById('goodTextField');
-  goodSite = goodTextField.value;
+  goodSite = "usenudge.com"
   var validURL_re = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/;
-  
-  if (!validURL_re.test(goodSite) && (goodSite != '')) {
-    goodTextField.className = goodTextField.className + ' error';
-  }
-  else {
-    if(hasClass(goodTextField, 'error')) {
-      goodTextField.className = goodTextField.className.replace(' error', '');
-    }
 
     var hasHTTP_re = /^(http[s]?:\/\/){0,1}/;
 
@@ -48,7 +39,6 @@ function onStart() {
     chrome.notifications.create('activation', options1);
     chrome.alarms.clearAll();
     chrome.alarms.create("distractionAlarm", {periodInMinutes: minutes});
-  }
 }
 
 function onFinish() {
@@ -168,13 +158,13 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
 });
 
 chrome.notifications.onClicked.addListener(function(notificationId) {
-  if(notificationId == 'distraction') {
+  //if(notificationId == 'distraction') {
     chrome.storage.sync.get('mySite', function(site) {
       if(site.mySite != '') {
         window.open('http://'+site.mySite, '_blank');
       }
     });
-  }
+  //}
 });
 
 document.onkeydown = function (evt) {
