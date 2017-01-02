@@ -1,4 +1,4 @@
-a { color: #ff6600; transition: .5s; -moz-transition: .5s; -webkit-transition: .5s; -o-transition: .5s; font-family: 'Muli', sans-serif; }
+a {font-weight: bolder; color: black; transition: .5s; -moz-transition: .5s; -webkit-transition: .5s; -o-transition: .5s; font-family: 'Muli', sans-serif; }
 
 
 a:hover { text-decoration: underline }
@@ -10,7 +10,7 @@ h1 a { font-family: 'Open Sans Condensed', sans-serif; font-size: 48px; color: #
 h1 a:hover { color: #ff6600; text-decoration: none; }
 
 
-p { color: #333; font-family: 'Muli', sans-serif; margin-bottom: 15px; }
+p { font-family: 'Muli', sans-serif; margin-bottom: 20px; margin-left: 3px;}
 
 
 a.more-link { color: white; font-weight: bold; font-size: 14px; font-family: Arial, Helvetica, sans-serif; padding: 3px 10px; background-color: #ff6600; border-radius: 5px; float: right; }
@@ -19,11 +19,53 @@ a.more-link { color: white; font-weight: bold; font-size: 14px; font-family: Ari
 a.more-link:hover { text-decoration: none; background-color: #666; border-radius: 0px; }
 
 
-body {width: 240px;}
+body {border-style: solid;
+    border-width: 5px; width: 240px; height: 315px; text-align: center;}
+
+input[type=text] {
+	border: none;
+    border-bottom: 2px solid #2eb1ff;
+    width: 142px;
+}
+
+input[type=url] {
+	border: none;
+    border-bottom: 2px solid #2eb1ff;
+}
+
+input[type=button] {
+
+    background-color: white;
+    color: black;
+    border: 2px solid #2eb1ff;
+
+	/*background-color: white;
+    color: black;
+    border: 1px solid gray;
+    border-radius: 8px;
+    -webkit-transition-duration: 0.2s; /* Safari */
+    /*transition-duration: 0.2s;*/
+}
+
+input[type=button]:hover {
+	background-color: #2eb1ff;
+	border: 2px solid #2eb1ff;
+    /*border-radius: 8px;*/
+    color: white;
+}
+
+select {
+	background-color: white;
+    color: black;
+    border: 1px solid gray;
+    border-radius: 8px;
+}
 
 .error {
 	border: 2px solid red;
 	border-radius: 3px;
 }
 
-#footer {font-style: italic; font-size: 9px}
+#footer {font-style: italic; font-size: 6px; margin-left: 0px; text-align: center;}
+
+

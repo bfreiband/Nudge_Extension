@@ -1,22 +1,22 @@
 var options1 = {
   type: "basic",
-  title: "Homework Mode Activated!",
+  title: "Notifications Activated",
   iconUrl: "icon.png",
   message: "We'll let you know if you get distracted"
 }
 
 var options2 = {
   type: "basic",
-  title: "Distraction Alert!",
+  title: "Distraction Alert",
   iconUrl: "icon.png",
-  message: "You still have unfinished homework :("
+  message: "There's work to be done"
 }
 
 var options3 = {
   type: "basic",
-  title: "Homework Mode Deactivated",
+  title: "Notifications Deactivated",
   iconUrl: "icon.png",
-  message: "No more homework means no more notifications. See you next time! :)"
+  message: "Time to relax"
 }
 
 var activeTab;
@@ -24,17 +24,9 @@ var goodSite;
 var blacklistArray = ['facebook.com','twitter.com'];
 
 function onStart() {
-  var minutes = parseFloat(document.getElementById('timeSetting').value);
-  var goodTextField = document.getElementById('goodTextField');
-  goodSite = goodTextField.value;
+  var minutes = 5; //sets the amount of time inbetween notifications
+  goodSite = "usenudge.com"
   var validURL_re = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/;
-  if (!validURL_re.test(goodSite) && (goodSite != '')) {
-    goodTextField.className = goodTextField.className + ' error';
-  }
-  else {
-    if(hasClass(goodTextField, 'error')) {
-      goodTextField.className = goodTextField.className.replace(' error', '');
-    }
 
     var hasHTTP_re = /^(http[s]?:\/\/){0,1}/;
 
@@ -47,7 +39,6 @@ function onStart() {
     chrome.notifications.create('activation', options1);
     chrome.alarms.clearAll();
     chrome.alarms.create("distractionAlarm", {periodInMinutes: minutes});
-  }
 }
 
 function onFinish() {
@@ -60,6 +51,7 @@ function onFinish() {
   })
 }
 
+/*this function adds the value in the text field to the blacklist*/
 function onAddToBlacklist() {
   var textField = document.getElementById('badTextField');
   var textFieldValue = textField.value.replace(/\s+/g, '');
@@ -87,6 +79,29 @@ function onAddToBlacklist() {
       })
     })
   }
+}
+
+/* this fuction adds the current tab to the blacklist*/
+function onAddToBlacklist2() {
+  chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
+    activeTab = (tabs[0].url);
+
+    var dropdown = document.getElementById('blacklistedSites');
+    dropdown.options[dropdown.options.length] = new Option(activeTab, activeTab);
+
+    chrome.storage.sync.get('blacklist', function(result_blist) {
+      chrome.storage.sync.get('prepopulated', function(result_ppop) {
+        blacklistArray = result_blist.blacklist;
+        blacklistArray[blacklistArray.length] = activeTab;
+        var blacklistObj = {
+          'blacklist': blacklistArray,
+          'prepopulated': result_ppop.prepopulated
+        }
+
+        chrome.storage.sync.set(blacklistObj);
+      })
+    })
+  })
 }
 
 function onRemoveFromBlacklist() {
@@ -143,13 +158,13 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
 });
 
 chrome.notifications.onClicked.addListener(function(notificationId) {
-  if(notificationId == 'distraction') {
+  //if(notificationId == 'distraction') {
     chrome.storage.sync.get('mySite', function(site) {
       if(site.mySite != '') {
         window.open('http://'+site.mySite, '_blank');
       }
     });
-  }
+  //}
 });
 
 document.onkeydown = function (evt) {
@@ -164,6 +179,7 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('activate').addEventListener('click', onStart);
   document.getElementById('deactivate').addEventListener('click', onFinish);
   document.getElementById('addToBlacklistButton').addEventListener('click', onAddToBlacklist);
+  document.getElementById('addToBlacklistButton2').addEventListener('click', onAddToBlacklist2);
   document.getElementById('removeFromBlacklistButton').addEventListener('click', onRemoveFromBlacklist);
 
   //Footer Links
@@ -188,7 +204,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function onSource() {
-  window.open("https://github.com/bfreiband/AssignMind", '_blank');
+  window.open("https://github.com/maxvwalbert/Nudge_Extension", '_blank');
 }
 
 function onMax() {

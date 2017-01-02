@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>AssignMind</title>
+    <title>nudge</title>
 
     <link rel="stylesheet" type="text/css" href="standard.css">
 
@@ -8,33 +8,20 @@
   </head>
   <body>
     <div class="col-md-6 col-md-offset-3">
-      <h1>AssignMind</h1>
-      <p>How often do you want reminders?</p>
-      <p>Every 
-      <select id='timeSetting'>
-        <option value="1">1</option>  <!-- CHANGE THIS VALUE BACK TO 1 WHEN DONE TESTING!!-->
-        <option value="3">3</option>
-        <option value="5">5</option>
-        <option value="10">10</option>
-        <option value="15">15</option>
-        <option value="20">20</option>
-        <option value="30">30</option>
-        <option value="45">45</option>
-        <option value="60">60</option>
-      </select>
-      minute(s)</p>
-      <p>Where are you working today?<br>
-        <input type="url" id="goodTextField" required placeholder="http://www.website.com">
-      </p>
+      <img src="nudge.png" width="100%"></img>
+      <lb>
       <p>Add sites to your blacklist:<br>
         <input type='text' id='badTextField' placeholder='http://www.distraction.com'>
         <input type='button' id='addToBlacklistButton' value='Add'></input>
+      </p>
+      <p>
+      <input type='button' id='addToBlacklistButton2' value='Add Current Tab to Blacklist'></input>
       </p>
       <p>Remove sites from your blacklist:<br>
         <select id='blacklistedSites'></select>
         <input type='button' id='removeFromBlacklistButton' value='Remove'></input>
       </p>
-        <input type='button' id='activate' value='Activate'>
+        <input type='button' id='activate' value='Activate Notifications'>
         <input type='button' id='deactivate' value='Deactivate'>
       <br>
         <p id="footer">
